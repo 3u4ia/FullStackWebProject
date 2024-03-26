@@ -16,27 +16,27 @@ function AccountForm() {
                     <div className="col-md-3"></div>
                     <form method="GET" className="col-md-6">
                         <div className="form-group">
-                            <label for="FirstName">First Name: </label>
-                            <input type="text" className="form-control" id="FirstName">
+                            <label>First Name: </label>
+                            <input type="text" className="form-control" id="FirstName"/>
                         </div>
                         <div className="form-group p-8">
                             <label>Last Name: </label>
                             <input type="text" name="LastName" className="form-control" id="LastName"/>
                         </div>
                         <div className="form-group">
-                            <label for="Address1">Address line 1:</label>
+                            <label>Address line 1:</label>
                             <input type="text" name="Address1" className="form-control" id="Address1"/>
                         </div>
                         <div className="from-group">
-                            <label for="Address2">Address line 2:</label>
+                            <label>Address line 2:</label>
                             <input type="text" name="Address2" className="form-control" id="Address2"/>
                         </div>
                         <div className="form-group">
-                            <label for="City">City:</label>
+                            <label>City:</label>
                             <input type="text" name="City" className="form-control" id="City"/>
                         </div>
                         <div className="form-group">
-                            <label for="State">State:</label>
+                            <label>State:</label>
                             <select id="State" name="State">
                                 <option value="">Select state</option>
                                 <option value="AL">Alabama</option>
@@ -109,20 +109,20 @@ function AccountForm() {
                         </div>
 
                         <div className="form-group">
-                            <label for="ZipCode" className="ZipCode">Zip Code:</label>
+                            <label className="ZipCode">Zip Code:</label>
                             <input type="number" name="ZipCode" id="ZipCode"/>
                         </div>
                         <div className="form-group">
-                            <label for="phone">Phone Number:</label>
+                            <label>Phone Number:</label>
                             <input type="tel" id="phone" name="phone"/>
                         </div>
                         <div className="form-group">
-                            <label for="email">Email:</label>
+                            <label>Email:</label>
                             <input type="text" id="email" name="email"/>
                         </div>
 
                         <div className="checkbox">
-                            <label><input type="checkbox"> Remember me</label>
+                            <label><input type="checkbox"/>Remember me</label>
                         </div>
 
                         <button type="submit" className="btn btn-success">Submit</button>
@@ -135,3 +135,4 @@ function AccountForm() {
     );
 }
 
+export default AccountForm;
