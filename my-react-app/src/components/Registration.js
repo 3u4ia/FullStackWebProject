@@ -1,4 +1,8 @@
+import webDev from '../Images/FullStackWebDevelopment.png';
 function RegistrationForm(){
+
+
+
     return (
         <>
             <div className="container-fluid">
@@ -12,8 +16,7 @@ function RegistrationForm(){
                 <div className="row">
                     <div className="col-md-12">
                         <div className="text-center">
-                            <img src="../FullStackWebDevelopment.png" className="img-fluid" style="width: 70%;"
-                                 alt="Logo: Leroy's Favorite"/>
+                            <img src={webDev} className="img-fluid" style={{width: "70%"}} alt="Logo: Leroy's Favorite"/>
                         </div>
                     </div>
                 </div>
