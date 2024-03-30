@@ -1,9 +1,11 @@
-
+import { useNavigate } from "react-router-dom";
 function LoginForm(props) {
     const {setIsLoggedIn} = props;
+    const navigate = useNavigate();
     const handleSubmit = async (event) => {
         event.preventDefault();
         setIsLoggedIn(true);
+        navigate('/');
     }
 
         return (

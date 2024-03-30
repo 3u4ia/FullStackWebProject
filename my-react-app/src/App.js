@@ -18,10 +18,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout isLoggedIn={isLoggedIn}/>}>
               <Route index element={<HomeForm/>}/>
+              {/*can use logical and operator to make sites exist and not exist*/}
               <Route  path="accountFields" element={<AccountForm/>}/>
               <Route path="loginPage" element={<LoginForm setIsLoggedIn={setIsLoggedIn}/>}/>
               <Route path="registration" element={<RegistrationForm setIsLoggedIn={setIsLoggedIn}/>}/>
-              <Route path="logout" element={<LogoutPage/>}/>
+              <Route path="logout" element={<LogoutPage setIsLoggedIn={setIsLoggedIn}/>}/>
               <Route path="*" element={<ErrorPage/>}/>
           </Route>
         </Routes>
