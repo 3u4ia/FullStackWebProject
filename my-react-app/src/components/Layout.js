@@ -1,6 +1,9 @@
 import {Link, Outlet} from "react-router-dom";
 import Logo from "../Images/Logo.png";
-const LayoutObj = () => {
+
+
+const Layout = (props) => {
+    const {isLoggedIn} = props;
     return (
         <>
             <nav className="navbar navbar-inverse">
@@ -16,11 +19,24 @@ const LayoutObj = () => {
                     <div className="collapse navbar-collapse" id="myNavbar">
                         <ul className="nav navbar-nav">
                             <li className="active"><Link to="/">Home</Link></li>
-                            <li><Link to="/registration">Register an account</Link></li>
-                            <li><Link to="/accountFields">Account</Link></li>
+                            {!isLoggedIn &&
+                                <li><Link to="/registration">Register an account</Link></li>
+                            }
+                            {isLoggedIn &&
+                                <li><Link to="/accountFields">Account</Link></li>
+                            }
+
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
-                            <li><Link to="/loginPage"><span className="glyphicon glyphicon-log-in"></span> Login</Link></li>
+                            {isLoggedIn &&
+                                <li><Link to="/logout">Logout</Link></li>
+
+                            }
+                            {!isLoggedIn &&
+                                <li>
+                                    <Link to="/loginPage"><span className="glyphicon glyphicon-log-in"></span> Login</Link>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>
@@ -29,4 +45,4 @@ const LayoutObj = () => {
         </>
     );
 }
-export default LayoutObj;
+export default Layout;
