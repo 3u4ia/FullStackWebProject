@@ -1,6 +1,6 @@
 import {Link, Outlet} from "react-router-dom";
-
-const Layout = () => {
+import Logo from "../Images/Logo.png";
+const LayoutObj = () => {
     return (
         <>
             <nav className="navbar navbar-inverse">
@@ -11,22 +11,22 @@ const Layout = () => {
                             <span className="icon-bar"></span>
                             <span className="icon-bar"></span>
                         </button>
-                        <a className="navbar-brand" href="./HomePage.html"><img src="../Logo.png" style="width:30px;"
-                                                                                alt="logo"/></a> <!-- Link the homepage where the hashtag is -->
+                        <Link className="navbar-brand" to="/"><img src={Logo} style={{width: 30}} alt="logo"/></Link>
                     </div>
                     <div className="collapse navbar-collapse" id="myNavbar">
                         <ul className="nav navbar-nav">
-                            <li className="active"><a href="./HomePage.html">Home</a></li>
-                            <li><a href="./Registration.html">Register an account</a></li>
-                            <li><a href="./AccountFields.html">Account</a></li>
+                            <li className="active"><Link to="/">Home</Link></li>
+                            <li><Link to="/registration">Register an account</Link></li>
+                            <li><Link to="/accountFields">Account</Link></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
-                            <li><a href="./LoginPage.html"><span
-                                className="glyphicon glyphicon-log-in"></span> Login</a></li>
+                            <li><Link to="/loginPage"><span className="glyphicon glyphicon-log-in"></span> Login</Link></li>
                         </ul>
                     </div>
                 </div>
             </nav>
+            <Outlet/>
         </>
-    )
+    );
 }
+export default LayoutObj;
