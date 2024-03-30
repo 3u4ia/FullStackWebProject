@@ -1,7 +1,5 @@
 
 function LoginForm(props) {
-
-    const {isLoggedIn} = props;
     const {setIsLoggedIn} = props;
     const handleSubmit = async (event) => {
         event.preventDefault();
