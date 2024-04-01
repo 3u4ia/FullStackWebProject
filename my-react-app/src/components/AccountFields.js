@@ -1,4 +1,39 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 function AccountForm() {
+
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [address1, setAddress1] = useState("");
+    const [address2, setAddress2] = useState("");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const [zipCode, setZipCode] = useState("");
+    const [phoneNum, setPhoneNum] = useState("");
+    const [email, setEmail] = useState("");
+    const navigate = useNavigate();
+
+    const handleRegistration = async (event) =>{
+        event.preventDefault()
+        console.log("firstName: ", firstName);
+        console.log("lastName: ", lastName);
+        console.log("address1: ", address1);
+        console.log("address2: ", address2);
+        console.log("city: ", city);
+        console.log("State: ", state);
+        console.log("zipCode: ", zipCode);
+        console.log("PhoneNum: ", phoneNum);
+        console.log("Email: ", email);
+        navigate('/')
+
+    }
+
+
+
+
+
+
     return(
         <>
             <div className="container-fluid">
@@ -14,37 +49,75 @@ function AccountForm() {
             <div className="container-fluid">
                 <div className="row bg-primary">
                     <div className="col-md-3"></div>
-                    <form method="GET" className="col-md-6">
+                    <form method="GET" className="col-md-6" onSubmit={handleRegistration}>
                         <div className="form-group">
                             <label>First Name: </label>
-                            <input type="text" className="form-control" id="FirstName"/>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="FirstName"
+                                value={firstName}
+                                onChange={(e)=>setFirstName(e.target.value)}
+                            />
                         </div>
                         <div className="form-group p-8">
                             <label>Last Name: </label>
-                            <input type="text" name="LastName" className="form-control" id="LastName"/>
+                            <input
+                                type="text"
+                                name="LastName"
+                                className="form-control"
+                                id="LastName"
+                                value={lastName}
+                                onChange={(e)=>setLastName(e.target.value)}
+                            />
                         </div>
                         <div className="form-group">
                             <label>Address line 1:</label>
-                            <input type="text" name="Address1" className="form-control" id="Address1"/>
+                            <input
+                                type="text"
+                                name="Address1"
+                                className="form-control"
+                                id="Address1"
+                                value={address1}
+                                onChange={(e)=>setAddress1(e.target.value)}
+                            />
                         </div>
                         <div className="from-group">
                             <label>Address line 2:</label>
-                            <input type="text" name="Address2" className="form-control" id="Address2"/>
+                            <input
+                                type="text"
+                                name="Address2"
+                                className="form-control"
+                                id="Address2"
+                                value={address2}
+                                onChange={(e)=>setAddress2(e.target.value)}
+                            />
                         </div>
                         <div className="form-group">
                             <label>City:</label>
-                            <input type="text" name="City" className="form-control" id="City"/>
+                            <input
+                                type="text"
+                                name="City"
+                                className="form-control"
+                                id="City"
+                                value={city}
+                                onChange={(e)=>setCity(e.target.value)}
+                            />
                         </div>
                         <div className="form-group">
                             <label>State:</label>
-                            <select id="State" name="State">
+                            <select
+                                id="state"
+                                name="State"
+                                value={state}
+                                onChange={(e)=>setState(e.target.value)}
+                            >
                                 <option value="">Select state</option>
                                 <option value="AL">Alabama</option>
                                 <option value="AK">Alaska</option>
                                 <option value="AS">American Samoa</option>
                                 <option value="AZ">Arizona</option>
                                 <option value="AR">Arkansas</option>
-                                <option value="UM-81">Baker Island</option>
                                 <option value="CA">California</option>
                                 <option value="CO">Colorado</option>
                                 <option value="CT">Connecticut</option>
@@ -54,27 +127,21 @@ function AccountForm() {
                                 <option value="GA">Georgia</option>
                                 <option value="GU">Guam</option>
                                 <option value="HI">Hawaii</option>
-                                <option value="UM-84">Howland Island</option>
                                 <option value="ID">Idaho</option>
                                 <option value="IL">Illinois</option>
                                 <option value="IN">Indiana</option>
                                 <option value="IA">Iowa</option>
-                                <option value="UM-86">Jarvis Island</option>
-                                <option value="UM-67">Johnston Atoll</option>
                                 <option value="KS">Kansas</option>
                                 <option value="KY">Kentucky</option>
-                                <option value="UM-89">Kingman Reef</option>
                                 <option value="LA">Louisiana</option>
                                 <option value="ME">Maine</option>
                                 <option value="MD">Maryland</option>
                                 <option value="MA">Massachusetts</option>
                                 <option value="MI">Michigan</option>
-                                <option value="UM-71">Midway Atoll</option>
                                 <option value="MN">Minnesota</option>
                                 <option value="MS">Mississippi</option>
                                 <option value="MO">Missouri</option>
                                 <option value="MT">Montana</option>
-                                <option value="UM-76">Navassa Island</option>
                                 <option value="NE">Nebraska</option>
                                 <option value="NV">Nevada</option>
                                 <option value="NH">New Hampshire</option>
@@ -87,7 +154,6 @@ function AccountForm() {
                                 <option value="OH">Ohio</option>
                                 <option value="OK">Oklahoma</option>
                                 <option value="OR">Oregon</option>
-                                <option value="UM-95">Palmyra Atoll</option>
                                 <option value="PA">Pennsylvania</option>
                                 <option value="PR">Puerto Rico</option>
                                 <option value="RI">Rhode Island</option>
@@ -95,12 +161,10 @@ function AccountForm() {
                                 <option value="SD">South Dakota</option>
                                 <option value="TN">Tennessee</option>
                                 <option value="TX">Texas</option>
-                                <option value="UM">United States Minor Outlying Islands</option>
                                 <option value="VI">United States Virgin Islands</option>
                                 <option value="UT">Utah</option>
                                 <option value="VT">Vermont</option>
                                 <option value="VA">Virginia</option>
-                                <option value="UM-79">Wake Island</option>
                                 <option value="WA">Washington</option>
                                 <option value="WV">West Virginia</option>
                                 <option value="WI">Wisconsin</option>
@@ -110,15 +174,33 @@ function AccountForm() {
 
                         <div className="form-group">
                             <label className="ZipCode">Zip Code:</label>
-                            <input type="number" name="ZipCode" id="ZipCode"/>
+                            <input
+                                type="number"
+                                name="ZipCode"
+                                id="ZipCode"
+                                value={zipCode}
+                                onChange={(e)=>setZipCode(e.target.value)}
+                            />
                         </div>
                         <div className="form-group">
                             <label>Phone Number:</label>
-                            <input type="tel" id="phone" name="phone"/>
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                value={phoneNum}
+                                onChange={(e)=>setPhoneNum(e.target.value)}
+                            />
                         </div>
                         <div className="form-group">
                             <label>Email:</label>
-                            <input type="text" id="email" name="email"/>
+                            <input
+                                type="text"
+                                id="email"
+                                name="email"
+                                value={email}
+                                onChange={(e)=>setEmail(e.target.value)}
+                            />
                         </div>
 
                         <div className="checkbox">
