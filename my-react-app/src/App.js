@@ -20,10 +20,18 @@ function App() {
           <Route path="/" element={<Layout isLoggedIn={isLoggedIn}/>}>
               <Route index element={<HomeForm/>}/>
               {/*can use logical and operator to make sites exist and not exist*/}
+              {isLoggedIn &&
               <Route  path="accountFields" element={<AccountForm/>}/>
+              }
+              {!isLoggedIn &&
               <Route path="loginPage" element={<LoginForm setIsLoggedIn={setIsLoggedIn}/>}/>
+              }
+              {!isLoggedIn &&
               <Route path="registration" element={<RegistrationForm setIsLoggedIn={setIsLoggedIn}/>}/>
+              }
+              {isLoggedIn &&
               <Route path="logout" element={<LogoutPage setIsLoggedIn={setIsLoggedIn}/>}/>
+              }
               <Route path="*" element={<ErrorPage/>}/>
           </Route>
         </Routes>
