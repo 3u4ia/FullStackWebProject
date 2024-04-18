@@ -15,17 +15,29 @@ function AccountForm() {
     const navigate = useNavigate();
 
     const handleRegistration = async (event) =>{
-        event.preventDefault()
-        console.log("firstName: ", firstName);
-        console.log("lastName: ", lastName);
-        console.log("address1: ", address1);
-        console.log("address2: ", address2);
-        console.log("city: ", city);
-        console.log("State: ", state);
-        console.log("zipCode: ", zipCode);
-        console.log("PhoneNum: ", phoneNum);
-        console.log("Email: ", email);
-        navigate('/')
+        try {
+            event.preventDefault();
+            const response = await fetch('http://localhost:8080/account', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({firstName, lastName, address1, address2,
+                                            city, state, zipCode, phoneNum, email})
+            });
+            const status = response.status;
+            const responseJson = await response.json();
+            console.log('responseJson', responseJson);
+            if (status === 200) {
+                navigate('/');
+            } else {
+                alert('Incorrect credentials');
+            }
+
+        } catch (e) {
+            alert(`Error: ${e.message}`);
+        }
 
     }
 

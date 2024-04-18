@@ -8,11 +8,29 @@ function RegistrationForm(){
     const navigate = useNavigate();
 
     const handleRegistration = async (event) =>{
-        event.preventDefault()
-        console.log("userName: ", userName);
-        console.log("pass: ", pass);
-        console.log("rePass", rePass);
-        navigate('/loginPage')
+        try{
+            event.preventDefault();
+            const response = await fetch('http://localhost:8080/registration', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({userName, pass, rePass})
+            });
+            const status = response.status;
+            const responseJson = await response.json();
+            console.log('responseJson', responseJson);
+            if (status === 201){
+                navigate('/loginPage');
+            }
+            else{
+                alert('Error Incorrect credentials');
+            }
+        }
+        catch (e) {
+            alert('error: ', e.message);
+        }
 
     }
 

@@ -7,11 +7,29 @@ function LoginForm(props) {
     const [ userName, setUserName ] = useState("");
     const [ password, setPassword ] = useState("");
     const handleSubmit = async (event) => {
-        event.preventDefault();
-        setIsLoggedIn(true);
-        console.log("userName: ", userName);
-        console.log("password: ", password);
-        navigate('/');
+        try {
+            event.preventDefault();
+            setIsLoggedIn(true);
+            const response = await fetch('http://localhost:8080/login', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({userName: userName, password: password})
+            });
+            const status = response.status;
+            const responseJson = await response.json();
+            console.log('responseJson', responseJson);
+            if (status === 200) {
+                navigate('/');
+            } else {
+                alert('Incorrect credentials');
+            }
+
+        } catch (e) {
+            alert(`Error: ${e.message}`);
+        }
     }
 
         return (
