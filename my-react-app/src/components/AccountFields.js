@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function AccountForm() {
+function AccountForm(props) {
+    const {userId} = props;
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -14,10 +15,35 @@ function AccountForm() {
     const [email, setEmail] = useState("");
     const navigate = useNavigate();
 
-    const handleRegistration = async (event) =>{
+
+
+
+    const handleAccountDetailSubmission = async (event) =>{
         try {
             event.preventDefault();
             const response = await fetch('http://localhost:8080/account', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+
+            });
+            const status = response.status;
+            const responseJson = await response.json();
+            console.log('responseJson', responseJson);
+            console.log('hello', userId);
+            if (status === 200) {
+                navigate('/');
+            }
+
+
+
+
+
+
+
+            /*const response = await fetch('http://localhost:8080/account', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -33,7 +59,7 @@ function AccountForm() {
                 navigate('/');
             } else {
                 alert('Incorrect credentials');
-            }
+            }*/
 
         } catch (e) {
             alert(`Error: ${e.message}`);
@@ -61,7 +87,11 @@ function AccountForm() {
             <div className="container-fluid">
                 <div className="row bg-primary">
                     <div className="col-md-3"></div>
-                    <form method="GET" className="col-md-6" onSubmit={handleRegistration}>
+                    <form method="GET"  className="col-md-6" onSubmit={handleAccountDetailSubmission}>
+                        <input
+                            type="hidden"
+                            value={userId}
+                        />
                         <div className="form-group">
                             <label>First Name: </label>
                             <input

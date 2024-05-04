@@ -1,30 +1,49 @@
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import {useNavigate} from "react-router-dom";
+import {useState} from "react";
 
 function LoginForm(props) {
     const {setIsLoggedIn} = props;
+
+    const {setUserId} = props;
+
     const navigate = useNavigate();
     const [ userName, setUserName ] = useState("");
     const [ password, setPassword ] = useState("");
+
+    const [ wrongPasswordVisibility, setWrongPasswordVisibility ] = useState(false);
+    const [ noUserVisibility , setNoUserVisibility ] = useState(false);
+
     const handleSubmit = async (event) => {
+
+
         try {
             event.preventDefault();
-            setIsLoggedIn(true);
             const response = await fetch('http://localhost:8080/login', {
                 method: 'POST',
                 headers: {
-                    'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({userName: userName, password: password})
+                body: JSON.stringify({ userName, password } )
             });
             const status = response.status;
             const responseJson = await response.json();
             console.log('responseJson', responseJson);
-            if (status === 200) {
+            if(status === 200){
+                setUserId(responseJson.id);
+                console.log('Authentication successful', responseJson);
+                setWrongPasswordVisibility(false);
+                setNoUserVisibility(false);
+                setIsLoggedIn(true);
                 navigate('/');
-            } else {
-                alert('Incorrect credentials');
+            }
+            else if(status === 401){
+                 setWrongPasswordVisibility(true);
+                 setNoUserVisibility(false);
+                console.log("status", status, "error", responseJson);
+            }
+            else if(status === 400){
+                console.log("status: ", status);
+                setNoUserVisibility(true);
             }
 
         } catch (e) {
@@ -62,6 +81,12 @@ function LoginForm(props) {
                             <div className="checkbox">
                                 <label><input type="checkbox"/> Remember me</label>
                             </div>
+                            {wrongPasswordVisibility && !noUserVisibility &&
+                                <p className="text-danger">Password is incorrect</p>
+                            }
+                            {noUserVisibility &&
+                                <p className="text-danger">No username found</p>
+                            }
                             <button type="submit" className="btn btn-success">Submit</button>
                             <button type="reset" className="btn btn-default">Reset</button>
                         </form>

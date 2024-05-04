@@ -1,16 +1,50 @@
 import { useState} from "react";
 import { useNavigate } from "react-router-dom";
 import webDev from '../Images/FullStackWebDevelopment.png';
+import {waitForElementToBeRemoved} from "@testing-library/react";
 function RegistrationForm(){
     const [userName, setUsername] = useState("");
-    const [pass, setPass] = useState("");
+    const [password, setPassword] = useState("");
     const [rePass, setRePass] = useState("");
     const navigate = useNavigate();
 
+
+    let visibility = false;
     const handleRegistration = async (event) =>{
         try{
-            event.preventDefault();
-            const response = await fetch('http://localhost:8080/registration', {
+            if(password === rePass){
+                event.preventDefault();
+                visibility = false;
+                const response = await fetch('http://localhost:8080/registration', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify({userName, password})
+                });
+                const status = response.status;
+                const responseJson = await response.json();
+                console.log('Status: ', status, 'Response', responseJson);
+                if (status === 201){
+                    console.log('Succesfully registered');
+                    navigate('/loginPage');
+                }
+                else if(status === 409){
+                    console.log(responseJson);
+                }
+            }
+            else{
+                console.log('I got the else');
+                visibility = true;
+            }
+
+
+
+
+
+
+            /*const response = await fetch('http://localhost:8080/registration', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -26,7 +60,7 @@ function RegistrationForm(){
             }
             else{
                 alert('Error Incorrect credentials');
-            }
+            }*/
         }
         catch (e) {
             alert('error: ', e.message);
@@ -78,9 +112,12 @@ function RegistrationForm(){
                                 id="password"
                                 className="form-control text-center"
                                 name="password"
-                                value={pass}
-                                onChange={(e)=>setPass(e.target.value)}
+                                value={password}
+                                onChange={(e)=>setPassword(e.target.value)}
                             />
+                            {visibility &&
+                                <p className="text-danger"></p>
+                            }
                         </div>
 
                         <div id="retypegroup">

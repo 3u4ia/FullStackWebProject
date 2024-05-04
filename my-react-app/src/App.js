@@ -14,6 +14,7 @@ import HomeForm from "./components/HomePage";
 
 function App() {
   const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+  const [ userId , setUserId ] = useState(undefined); //then i could pass into account Form liek a prop and have loginForm set it
   return (
       <BrowserRouter>
         <Routes>
@@ -21,10 +22,10 @@ function App() {
               <Route index element={<HomeForm/>}/>
               {/*can use logical and operator to make sites exist and not exist*/}
               {isLoggedIn &&
-              <Route  path="accountFields" element={<AccountForm/>}/>
+              <Route  path="accountFields" element={<AccountForm userId={userId}/>} />
               }
               {!isLoggedIn &&
-              <Route path="loginPage" element={<LoginForm setIsLoggedIn={setIsLoggedIn}/>}/>
+              <Route path="loginPage" element={<LoginForm setIsLoggedIn={setIsLoggedIn} setUserId={setUserId}/>}/>
               }
               {!isLoggedIn &&
               <Route path="registration" element={<RegistrationForm setIsLoggedIn={setIsLoggedIn}/>}/>
