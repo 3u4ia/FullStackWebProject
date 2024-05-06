@@ -30,7 +30,7 @@ function LoginForm(props) {
             console.log('responseJson', responseJson);
             if(status === 200){
                 setUserId(responseJson.id);
-                console.log('Authentication successful', responseJson);
+                console.log('Authentication successful: ', responseJson.id);
                 setWrongPasswordVisibility(false);
                 setNoUserVisibility(false);
                 setIsLoggedIn(true);

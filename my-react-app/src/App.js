@@ -18,7 +18,7 @@ function App() {
   return (
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout isLoggedIn={isLoggedIn}/>}>
+          <Route path="/" element={<Layout isLoggedIn={isLoggedIn} userId={userId}/>}>
               <Route index element={<HomeForm/>}/>
               {/*can use logical and operator to make sites exist and not exist*/}
               {isLoggedIn &&

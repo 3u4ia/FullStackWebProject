@@ -17,7 +17,6 @@ function AccountForm(props) {
 
 
 
-
     const handleAccountDetailSubmission = async (event) =>{
         try {
             event.preventDefault();

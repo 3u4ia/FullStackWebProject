@@ -1,9 +1,52 @@
 import {Link, Outlet} from "react-router-dom";
 import Logo from "../Images/Logo.png";
-
+import {useEffect} from "react";
 
 const Layout = (props) => {
     const {isLoggedIn} = props;
+    const {userId} = props;
+
+
+
+    const handleAccountClick = async(event) => {
+        try{
+            event.preventDefault();
+            const response = await fetch('http://localhost:8080/accounts', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({userId}) //must put userId in the request thingy
+            });
+
+
+
+            const status = response.status;
+            const responseJson = await response.json();
+            console.log('ResponseJson is', responseJson);
+            if(status === 200){
+                console.log('firstName: ', responseJson.firstName);
+                console.log('lastName: ', responseJson.lastName);
+                console.log('address1: ', responseJson.address1);
+                console.log('address2: ', responseJson.address2);
+                console.log('city: ', responseJson.city);
+                console.log('state: ', responseJson.state);
+                console.log('zipCode: ', responseJson.zipCode);
+                console.log('phoneNumber: ', responseJson.phoneNumber);
+                console.log('email: ', responseJson.email);
+            }
+            else if(status === 204){
+                console.log('There is no data for the account with userId', userId);
+            }
+        } catch(e){
+            alert(`Error: ${e.message}`);
+        }
+    }
+
+
+
+
     return (
         <>
             <nav className="navbar navbar-inverse">
@@ -23,7 +66,7 @@ const Layout = (props) => {
                                 <li><Link to="/registration">Register an account</Link></li>
                             }
                             {isLoggedIn &&
-                                <li><Link to="/accountFields">Account</Link></li>
+                                <li><Link to="/accountFields" onClick={handleAccountClick}>Account</Link></li>
                             }
 
                         </ul>
@@ -34,7 +77,7 @@ const Layout = (props) => {
                             }
                             {!isLoggedIn &&
                                 <li>
-                                    <Link to="/loginPage"><span className="glyphicon glyphicon-log-in"></span> Login</Link>
+                                    <Link to="/loginPage" ><span className="glyphicon glyphicon-log-in"></span> Login</Link>
                                 </li>
                             }
                         </ul>
