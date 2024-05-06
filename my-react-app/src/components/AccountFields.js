@@ -1,6 +1,5 @@
-import { useState } from "react";
-import {useEffect} from "react";
-import { useNavigate } from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 function AccountForm(props) {
     const {userId} = props;
@@ -16,10 +15,16 @@ function AccountForm(props) {
     const [email, setEmail] = useState("");
     const navigate = useNavigate();
 
+
+
+
     useEffect(() => {
-        const handleAccountGet = async() => {
-            const response = await fetch('http://localhost:8080/account?userId=' + userId)
+        const plsDoStuff = async () => {
+            const response = await fetch('http://localhost:8080/account?userId=' + userId);
+            console.log("hello", response.json());
         }
+        plsDoStuff();
+
     }
     , [userId]);
 
@@ -44,28 +49,6 @@ function AccountForm(props) {
             }
 
 
-
-
-
-
-
-            /*const response = await fetch('http://localhost:8080/account', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({firstName, lastName, address1, address2,
-                                            city, state, zipCode, phoneNum, email})
-            });
-            const status = response.status;
-            const responseJson = await response.json();
-            console.log('responseJson', responseJson);
-            if (status === 200) {
-                navigate('/');
-            } else {
-                alert('Incorrect credentials');
-            }*/
 
         } catch (e) {
             alert(`Error: ${e.message}`);
@@ -257,6 +240,7 @@ function AccountForm(props) {
 
                         <button type="submit" className="btn btn-success">Submit</button>
                         <button type="reset" className="btn btn-default btn-secondary">Reset</button>
+                        <button type="button" className="btn btn-danger">Edit</button>
                     </form>
                     <div className="col-md-3"></div>
                 </div>
