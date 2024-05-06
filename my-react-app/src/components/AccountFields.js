@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 
 function AccountForm(props) {
@@ -15,6 +16,12 @@ function AccountForm(props) {
     const [email, setEmail] = useState("");
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const handleAccountGet = async() => {
+            const response = await fetch('http://localhost:8080/account?userId=' + userId)
+        }
+    }
+    , [userId]);
 
 
     const handleAccountDetailSubmission = async (event) =>{
