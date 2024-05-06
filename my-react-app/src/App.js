@@ -31,7 +31,7 @@ function App() {
               <Route path="registration" element={<RegistrationForm setIsLoggedIn={setIsLoggedIn}/>}/>
               }
               {isLoggedIn &&
-              <Route path="logout" element={<LogoutPage setIsLoggedIn={setIsLoggedIn}/>}/>
+              <Route path="logout" element={<LogoutPage setIsLoggedIn={setIsLoggedIn} setUserId={undefined}/>}/>
               }
               <Route path="*" element={<ErrorPage/>}/>
           </Route>

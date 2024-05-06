@@ -38,6 +38,7 @@ function AccountForm(props) {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
+                body: JSON.stringify({})
 
             });
             const status = response.status;
@@ -55,6 +56,9 @@ function AccountForm(props) {
         }
 
     }
+
+
+
 
 
 
