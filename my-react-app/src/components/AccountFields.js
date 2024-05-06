@@ -11,7 +11,7 @@ function AccountForm(props) {
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const [zipCode, setZipCode] = useState("");
-    const [phoneNum, setPhoneNum] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
     const [email, setEmail] = useState("");
     const navigate = useNavigate();
 
@@ -21,9 +21,9 @@ function AccountForm(props) {
     useEffect(() => {
         const plsDoStuff = async () => {
             const response = await fetch('http://localhost:8080/account?userId=' + userId);
-            console.log("hello", response.json());
+            //console.log("hello", response.json());
         }
-        plsDoStuff();
+        const something = plsDoStuff();
 
     }
     , [userId]);
@@ -32,21 +32,32 @@ function AccountForm(props) {
     const handleAccountDetailSubmission = async (event) =>{
         try {
             event.preventDefault();
-            const response = await fetch('http://localhost:8080/account', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({})
+            const getResponse = await fetch('http://localhost:8080/account?userId='+userId)
+            if(getResponse.status===204){
+                const postResponse = await fetch('http://localhost:8080/account', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({userId, firstName, lastName, address1, address2,
+                                                city, state, zipCode, phoneNumber, email})
 
-            });
-            const status = response.status;
-            const responseJson = await response.json();
-            console.log('responseJson', responseJson);
-            console.log('hello', userId);
-            if (status === 200) {
-                navigate('/');
+                });
+                console.log("User Created new Account details", postResponse.json());
+
+            }
+            else if(getResponse.status === 200){
+                const putResponse = await fetch ('http://localhost:8080/account', {
+                    method: 'PUT',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({userId, firstName, lastName, address1, address2,
+                                                city, state, zipCode, phoneNumber, email})
+                });
+                console.log('User Updated Account details', putResponse.json());
             }
 
 
@@ -223,8 +234,8 @@ function AccountForm(props) {
                                 type="tel"
                                 id="phone"
                                 name="phone"
-                                value={phoneNum}
-                                onChange={(e)=>setPhoneNum(e.target.value)}
+                                value={phoneNumber}
+                                onChange={(e)=>setPhoneNumber(e.target.value)}
                             />
                         </div>
                         <div className="form-group">
@@ -244,7 +255,7 @@ function AccountForm(props) {
 
                         <button type="submit" className="btn btn-success">Submit</button>
                         <button type="reset" className="btn btn-default btn-secondary">Reset</button>
-                        <button type="button" className="btn btn-danger">Edit</button>
+
                     </form>
                     <div className="col-md-3"></div>
                 </div>
